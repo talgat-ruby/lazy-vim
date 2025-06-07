@@ -45,4 +45,35 @@ return {
       })
     end,
   },
+  {
+    "williamboman/mason.nvim",
+    opts = function(_, opts)
+      -- Ensure golangci-lint-langserver is added to the list of tools
+      vim.list_extend(opts.ensure_installed or {}, {
+        "golangci-lint-langserver",
+      })
+    end,
+  },
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      servers = {
+        golangci_lint_ls = {
+          cmd = { "golangci-lint-langserver" },
+          filetypes = { "go" },
+          root_dir = require("lspconfig.util").root_pattern("go.mod", ".git"),
+          init_options = {
+            command = {
+              "golangci-lint",
+              "run",
+              "--output.json.path",
+              "stdout",
+              "--show-stats=false",
+              "--issues-exit-code=1",
+            },
+          },
+        },
+      },
+    },
+  },
 }
