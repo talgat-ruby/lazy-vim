@@ -46,7 +46,7 @@ return {
     end,
   },
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     opts = function(_, opts)
       -- Ensure golangci-lint-langserver is added to the list of tools
       vim.list_extend(opts.ensure_installed or {}, {
